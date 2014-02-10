@@ -1,5 +1,6 @@
 var express = require("express");
 var https = require("https");
+var config = require("./config")
 var app = express();
 
 app.use(express.bodyParser());
@@ -28,10 +29,10 @@ app.post('/', function(req, res) {
   };
 
   var options = {
-          host: 'alert.victorops.com',
-          port: 443,
-          path: '/integrations/generic/20131114/alert/33aba56f-fc78-4c65-9c6d-57a49cbb6ed8/uservoicetest',
-          method: 'POST',
+          host: config.target.host,
+          port: config.target.port,
+          path: config.target.path,
+          method: config.target.method,
           headers: headers
         };
   var remote_request = https.request(options, function(remote_response) {
